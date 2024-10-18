@@ -18,7 +18,19 @@ function incrementLemon() {
   body.innerHTML = `you have ${num_lemon} 🍋 in your basket`;
 }
 
+const streamOfLemon = setInterval(incrementLemon, 1000);
+function stopLemonStream() {
+  clearInterval(streamOfLemon);
+}
+
 const button = document.createElement("button");
 button.innerHTML = "Click to count the lemons 🍋";
 button.addEventListener("click", incrementLemon);
+
+
+const stopButton = document.createElement("button");
+stopButton.innerHTML = "stop stream of lemons...";
+stopButton.addEventListener("click", stopLemonStream);
+
 app.append(button);
+app.append(stopButton);
