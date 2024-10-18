@@ -4,12 +4,11 @@ const app: HTMLDivElement = document.querySelector("#app")!;
 let lastUpdateTime = performance.now();
 let autoClick = true;
 let autoClick1 = true;
-let autoClick2  = true;
+let autoClick2 = true;
 let upgradeModifier = 0;
-let item1 = 0; 
-let item2 = 0;
-let item3 = 0;
-
+let item1 = 0, item2 = 0, item3 = 0;
+let priceAuto = 10, priceSuper = 100, priceUltra = 1000;
+const priceMod = 1.15;
 const gameName = "Count the lemons";
 document.title = gameName;
 
@@ -35,26 +34,26 @@ app.append(ultraPurchased);
 let num_lemon = 0;
 function incrementLemon(amount: number) {
   num_lemon += amount;
-  if (num_lemon >= 10) {
+  if (num_lemon >= priceAuto) {
     autoClick = false;
     upgrade.disabled = autoClick;
-  }else{
+  } else {
     autoClick = true;
     upgrade.disabled = autoClick;
   }
 
-  if(num_lemon >= 100) {
+  if (num_lemon >= priceSuper) {
     autoClick1 = false;
     upgradeSuper.disabled = autoClick1;
-  }else{
+  } else {
     autoClick1 = true;
     upgradeSuper.disabled = autoClick1;
   }
 
-  if(num_lemon >= 1000){
+  if (num_lemon >= priceUltra) {
     autoClick2 = false;
     upgradeUltra.disabled = autoClick2;
-  }else{
+  } else {
     autoClick2 = true;
     upgradeUltra.disabled = autoClick2;
   }
@@ -82,30 +81,32 @@ app.append(button);
 const upgrade = document.createElement("button");
 upgrade.innerHTML = "Purchase Auto 🕓🍋 Clicker";
 upgrade.addEventListener("click", () => {
-  num_lemon = num_lemon - 10;
+  num_lemon = num_lemon - priceAuto;
   upgradeModifier += 0.1;
   item1 += 1;
+  priceAuto = priceAuto * priceMod;
 });
-app.append(upgrade)
+app.append(upgrade);
 
 const upgradeSuper = document.createElement("button");
 upgradeSuper.innerHTML = "Purchase Super Auto ➕🍋 Clicker";
 upgradeSuper.addEventListener("click", () => {
-  num_lemon = num_lemon - 100;
+  num_lemon = num_lemon - priceSuper;
   upgradeModifier += 1;
   item2 += 1;
+  priceSuper = priceSuper * priceMod;
 });
 app.append(upgradeSuper);
 
 const upgradeUltra = document.createElement("button");
 upgradeUltra.innerHTML = "Purchase Ultra Auto 💥🍋 Clicker";
 upgradeUltra.addEventListener("click", () => {
-  num_lemon = num_lemon - 1000;
+  num_lemon = num_lemon - priceUltra;
   upgradeModifier += 50;
   item3 += 1;
+  priceUltra = priceUltra * priceMod;
 });
 app.append(upgradeUltra);
-
 
 console.log(autoClick);
 upgrade.disabled = autoClick;
