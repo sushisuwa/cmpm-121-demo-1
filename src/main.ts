@@ -6,10 +6,14 @@ let autoClick = true;
 let autoClick1 = true;
 let autoClick2 = true;
 let upgradeModifier = 0;
-let item1 = 0, item2 = 0, item3 = 0;
-let priceAuto = 10, priceSuper = 100, priceUltra = 1000;
+let item1 = 0,
+  item2 = 0,
+  item3 = 0;
+let priceAuto = 10,
+  priceSuper = 100,
+  priceUltra = 1000;
 const priceMod = 1.15;
-const gameName = "Count the lemons";
+const gameName = "Zesty Quest: Count of the Lemons";
 document.title = gameName;
 
 const header = document.createElement("h1");
@@ -30,6 +34,10 @@ app.append(superPurchased);
 
 const ultraPurchased = document.createElement("p");
 app.append(ultraPurchased);
+
+const buttonContainer = document.createElement("div");
+buttonContainer.className = "button-container";
+app.append(buttonContainer);
 
 let num_lemon = 0;
 function incrementLemon(amount: number) {
@@ -59,9 +67,9 @@ function incrementLemon(amount: number) {
   }
 
   body.innerHTML = `you have ${Math.floor(num_lemon)} 🍋 in your basket`;
-  autoClickerPurchased.innerHTML = `${item1} : 🕓🍋 Auto Clickers`;
-  superPurchased.innerHTML = `${item2} : ➕🍋 Super Auto Clickers`;
-  ultraPurchased.innerHTML = `${item3} : 💥🍋 Ultra Clickers`;
+  autoClickerPurchased.innerHTML = `${item1} : 🥼 Lemon Experts`;
+  superPurchased.innerHTML = `${item2} : 🫙 Lemonade Stands`;
+  ultraPurchased.innerHTML = `${item3} : 👩‍👩‍👧‍👦 Lemon Unions `;
   growthRate.innerHTML = `${upgradeModifier.toFixed(1)}🍋/s`;
 }
 
@@ -73,13 +81,13 @@ function animate(time: number) {
 }
 
 const button = document.createElement("button");
-button.innerHTML = "Click to count the lemons 🍋";
+button.innerHTML = "🍋";
 button.addEventListener("click", () => incrementLemon(1));
 
-app.append(button);
+buttonContainer.append(button);
 
 const upgrade = document.createElement("button");
-upgrade.innerHTML = "Purchase Auto 🕓🍋 Clicker";
+upgrade.innerHTML = "Purchase Lemon Expert 🥼";
 upgrade.addEventListener("click", () => {
   num_lemon = num_lemon - priceAuto;
   upgradeModifier += 0.1;
@@ -89,7 +97,7 @@ upgrade.addEventListener("click", () => {
 app.append(upgrade);
 
 const upgradeSuper = document.createElement("button");
-upgradeSuper.innerHTML = "Purchase Super Auto ➕🍋 Clicker";
+upgradeSuper.innerHTML = "Purchase 🫙 Lemonade Stand";
 upgradeSuper.addEventListener("click", () => {
   num_lemon = num_lemon - priceSuper;
   upgradeModifier += 1;
@@ -99,7 +107,7 @@ upgradeSuper.addEventListener("click", () => {
 app.append(upgradeSuper);
 
 const upgradeUltra = document.createElement("button");
-upgradeUltra.innerHTML = "Purchase Ultra Auto 💥🍋 Clicker";
+upgradeUltra.innerHTML = "Purchase Lemon Union 👩‍👩‍👧‍👦";
 upgradeUltra.addEventListener("click", () => {
   num_lemon = num_lemon - priceUltra;
   upgradeModifier += 50;
