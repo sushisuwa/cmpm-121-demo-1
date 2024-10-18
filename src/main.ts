@@ -20,5 +20,5 @@ function incrementLemon() {
 
 const button = document.createElement("button");
 button.innerHTML = "Click to count the lemons 🍋";
-button.addEventListener("click",incrementLemon);
+button.addEventListener("click", incrementLemon);
 app.append(button);
