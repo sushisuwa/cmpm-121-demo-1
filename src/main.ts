@@ -1,17 +1,31 @@
 import "./style.css";
 
 const app: HTMLDivElement = document.querySelector("#app")!;
+interface Item {
+  name: string;
+  cost: number;
+  rate: number;
+  purchased: number;
+}
+
+const availableItems: Item[] = [
+  { name: "Lemon Expert", cost: 10, rate: 0.1, purchased: 0 },
+  { name: "Lemonade Stand", cost: 100, rate: 2, purchased: 0 },
+  { name: "Lemon Union", cost: 1000, rate: 50, purchased: 0 },
+];
+
 let lastUpdateTime = performance.now();
-let autoClick = true;
-let autoClick1 = true;
-let autoClick2 = true;
+//let autoClick = true;
+//let autoClick1 = true;
+//let autoClick2 = true;
 let upgradeModifier = 0;
-let item1 = 0,
+/*let item1 = 0,
   item2 = 0,
   item3 = 0;
 let priceAuto = 10,
   priceSuper = 100,
   priceUltra = 1000;
+  */
 const priceMod = 1.15;
 const gameName = "Zesty Quest: Count of the Lemons";
 document.title = gameName;
@@ -42,34 +56,15 @@ app.append(buttonContainer);
 let num_lemon = 0;
 function incrementLemon(amount: number) {
   num_lemon += amount;
-  if (num_lemon >= priceAuto) {
-    autoClick = false;
-    upgrade.disabled = autoClick;
-  } else {
-    autoClick = true;
-    upgrade.disabled = autoClick;
-  }
-
-  if (num_lemon >= priceSuper) {
-    autoClick1 = false;
-    upgradeSuper.disabled = autoClick1;
-  } else {
-    autoClick1 = true;
-    upgradeSuper.disabled = autoClick1;
-  }
-
-  if (num_lemon >= priceUltra) {
-    autoClick2 = false;
-    upgradeUltra.disabled = autoClick2;
-  } else {
-    autoClick2 = true;
-    upgradeUltra.disabled = autoClick2;
-  }
 
   body.innerHTML = `you have ${Math.floor(num_lemon)} 🍋 in your basket`;
-  autoClickerPurchased.innerHTML = `${item1} : 🥼 Lemon Experts`;
-  superPurchased.innerHTML = `${item2} : 🫙 Lemonade Stands`;
-  ultraPurchased.innerHTML = `${item3} : 👩‍👩‍👧‍👦 Lemon Unions `;
+  availableItems.forEach((item) => {
+    const item_purchased = document.createElement("p");
+    item_purchased.innerHTML = `${item.purchased} : ${item.name}s`;
+  });
+  //autoClickerPurchased.innerHTML = `${item1} : 🥼 Lemon Experts`;
+  //superPurchased.innerHTML = `${item2} : 🫙 Lemonade Stands`;
+  //ultraPurchased.innerHTML = `${item3} : 👩‍👩‍👧‍👦 Lemon Unions `;
   growthRate.innerHTML = `${upgradeModifier.toFixed(1)}🍋/s`;
 }
 
@@ -83,9 +78,26 @@ function animate(time: number) {
 const button = document.createElement("button");
 button.innerHTML = "🍋";
 button.addEventListener("click", () => incrementLemon(1));
-
 buttonContainer.append(button);
 
+availableItems.forEach((item) => {
+  const button = document.createElement("button");
+  button.innerHTML = `Purchase ${item.name}`;
+
+  button.addEventListener("click", () => {
+    num_lemon -= item.cost;
+    item.rate += item.rate;
+    upgradeModifier += item.rate;
+
+    item.purchased += 1;
+    item.cost = item.cost * priceMod;
+  });
+
+  app.append(button);
+});
+requestAnimationFrame(animate);
+
+/*
 const upgrade = document.createElement("button");
 upgrade.innerHTML = "Purchase Lemon Expert 🥼";
 upgrade.addEventListener("click", () => {
@@ -95,7 +107,6 @@ upgrade.addEventListener("click", () => {
   priceAuto = priceAuto * priceMod;
 });
 app.append(upgrade);
-
 const upgradeSuper = document.createElement("button");
 upgradeSuper.innerHTML = "Purchase 🫙 Lemonade Stand";
 upgradeSuper.addEventListener("click", () => {
@@ -120,5 +131,4 @@ console.log(autoClick);
 upgrade.disabled = autoClick;
 upgradeSuper.disabled = autoClick1;
 upgradeUltra.disabled = autoClick2;
-
-requestAnimationFrame(animate);
+*/
