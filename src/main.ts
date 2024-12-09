@@ -9,12 +9,28 @@ interface Item {
   description: string;
 }
 
+//item cost constants
+const ITEM_COST_LEMON_EXPERT = 10;
+const ITEM_COST_LEMONADE_STAND = 100;
+const ITEM_COST_LEMON_UNION = 1000;
+const ITEM_COST_LEMONADE_ALCHEMIST = 5000;
+const ITEM_COST_ZEST_ZEN_MASTER = 15000;
+
+//item rate constants
+const ITEM_RATE_LEMON_EXPERT = 0.1; // Autoclick rate
+const ITEM_RATE_LEMONADE_STAND = 2;
+const ITEM_RATE_LEMON_UNION = 50;
+const ITEM_RATE_LEMONADE_ALCHEMIST = 200;
+const ITEM_RATE_ZEST_ZEN_MASTER = 1000;
+
+const PRICE_MODIFIER = 1.15;
+
 const availableItems: Item[] = [
-  { name: "🍋🥼 Lemon Expert", cost: 10, rate: 0.1, purchased: 0, description: "Autoclicks once every 10 seconds"},
-  { name: "🍋🏠 Lemonade Stand", cost: 100, rate: 2, purchased: 0, description: "Boost production with fresh lemonade sales."},
-  { name: "🍋👥 Lemon Union", cost: 1000, rate: 50, purchased: 0, description: "Join forces to multiply lemon output."},
-  { name: "🍋🧙 Lemonade Alchemist", cost: 5000, rate: 200, purchased: 0, description: "Blends ancient alchemy with modern science to distill the essence of lemons into unprecedented productivity boosts."},
-  { name: "🍋🧘 Zest Zen Master", cost: 15000, rate: 1000, purchased: 0, description: "Harnesses the zen-like focus of citrus enlightenment to enhance your lemon operations manifold."}
+  { name: "🍋🥼 Lemon Expert", cost: ITEM_COST_LEMON_EXPERT, rate: ITEM_RATE_LEMON_EXPERT, purchased: 0, description: "Autoclicks once every 10 seconds"},
+  { name: "🍋🏠 Lemonade Stand", cost: ITEM_COST_LEMONADE_STAND, rate: ITEM_RATE_LEMONADE_STAND, purchased: 0, description: "Boost production with fresh lemonade sales."},
+  { name: "🍋👥 Lemon Union", cost: ITEM_COST_LEMON_UNION, rate: ITEM_RATE_LEMON_UNION, purchased: 0, description: "Join forces to multiply lemon output."},
+  { name: "🍋🧙 Lemonade Alchemist", cost: ITEM_COST_LEMONADE_ALCHEMIST, rate: ITEM_RATE_LEMONADE_ALCHEMIST, purchased: 0, description: "Blends ancient alchemy with modern science to distill the essence of lemons into unprecedented productivity boosts."},
+  { name: "🍋🧘 Zest Zen Master", cost: ITEM_COST_ZEST_ZEN_MASTER, rate: ITEM_RATE_ZEST_ZEN_MASTER, purchased: 0, description: "Harnesses the zen-like focus of citrus enlightenment to enhance your lemon operations manifold."}
 ];
 
 const itemElements: HTMLParagraphElement[] = [];
@@ -22,7 +38,6 @@ const itemButtonElements: HTMLButtonElement[] = [];
 
 let lastUpdateTime = performance.now();
 let upgradeModifier = 0;
-const priceMod = 1.15;
 const gameName = "Zesty Quest: Count of the Lemons";
 document.title = gameName;
 
@@ -100,7 +115,7 @@ availableItems.forEach((item) => {
     upgradeModifier += item.rate;
 
     item.purchased += 1;
-    item.cost = item.cost * priceMod;
+    item.cost = item.cost * PRICE_MODIFIER;
   });
 
   itemButtonElements.push(button);
