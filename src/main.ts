@@ -37,11 +37,11 @@ const growthRate = document.createElement("p");
 app.append(growthRate);
 
 availableItems.forEach((item) => {
-  const item_purchased = document.createElement("p");
-  item_purchased.innerHTML = `${item.purchased} : ${item.name}s`;
-  app.append(item_purchased);
+  const itemPurchasedElement = document.createElement("p");
+  itemPurchasedElement.innerHTML = `${item.purchased} : ${item.name}s`;
+  app.append(itemPurchasedElement);
 
-  itemElements.push(item_purchased);
+  itemElements.push(itemPurchasedElement);
 });
 
 const buttonContainer = document.createElement("div");
@@ -51,14 +51,14 @@ app.append(buttonContainer);
 const tooltipStyle = document.createElement("style");
 document.head.append(tooltipStyle);
 
-let num_lemon = 0;
+let numberOfLemons = 0;
 function incrementLemon(amount: number) {
-  num_lemon += amount;
-  body.innerHTML = `you have ${Math.floor(num_lemon)} 🍋 in your basket`;
+  numberOfLemons += amount;
+  body.innerHTML = `you have ${Math.floor(numberOfLemons)} 🍋 in your basket`;
   availableItems.forEach((item, index) => {
     itemElements[index].innerHTML = `${item.purchased} : ${item.name}s`;
 
-    if (num_lemon >= item.cost) {
+    if (numberOfLemons >= item.cost) {
       itemButtonElements[index].disabled = false;
     } else {
       itemButtonElements[index].disabled = true;
@@ -96,7 +96,7 @@ availableItems.forEach((item) => {
   tooltipContainer.appendChild(tooltip);
 
   button.addEventListener("click", () => {
-    num_lemon -= item.cost;
+    numberOfLemons -= item.cost;
     upgradeModifier += item.rate;
 
     item.purchased += 1;
